@@ -43,13 +43,17 @@ Completeness:
 - retweeted_status_user_id: 181 out of 2356 is non-null
 - retweeted_status_timestamp: 181 out of 2356 is non-null
 - name: string 'None' should be replaced by Null
+
 Validity:
 - rating_denominator contains invalid values (e.g. denominator = 0)
 - expanded_url just includes incomplete url, which contains "https://twitter.com/dog_rates/status/" plus part of tweet_id
+
 Accuracy:
 - rating_numberator contains extremely large values (e.g. 1776 when denominator = 10)
+
 Consistency:
 - source: the long name with HTML tag could be shorten.
+
 Data Types:
 - tweet_id: integer -> object
 - timestamp: object -> datetime
@@ -61,6 +65,7 @@ Data Types:
 Completeness:
 - retweet & favourite count: "Nan" should be replaced by Null.
 - retweet & favourite count: 16 missing values
+
 Data Type:
 - retweet & favourite count: object -> integer
 #### Dataset 3
@@ -88,32 +93,42 @@ Data Type:
 Since there are various rating denominators (although most of them are 10), the rating of dogs is calculated by dividing the numerator by the denominator.
 From the sorted raw data in the Data Cleaning section and the calculation above, it can be seen that there are 10 rows have their ratings larger than 1.7, including most outliers.
 After cutting off these 10 rows, it shows that the ratings of dogs are left-skewed distributed, with the mean of 1.07 and the median of 1.10. Besides, 75% of the dogs are rated equal to or more than 100%. Thus, it can be found that most dogs are considered to be better than perfect.
+
 ![Dog Ratings](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/dog_ratings.png)
 
 ## 2. Source of Tweet
 From the pie chart, it presents that the dominant source is from iPhone, which is 94.3%. Only a few people use Vine (3.9%), Website (1.4%) and TweetDect (0.5%) to browse WeRateDogs Tweet.
+
 ![Source of Tweet](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/sources.png)
 
 ## 3. Relationship between Retweet and Favourite
 The count of retweet and favourite are highly positively correlated ( r = 0.797). Thus, we could say that the more people like a tweet, the more they retweet it.
+
 ![Retweet and Favourite](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/retweet_favourite.png)
 
 ## 4. Breeds
 The top 15 predicted dogs are shown in the plot.
+
 ![Breeds](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/dog_predictions.png)
+
 It can be seen that golden retriever is the No.1 predicted dog, which has been predicted 150 times with high confidence. The confidence of predicting it is left skewed, with the median of 0.78 and mean of 0.72.
 The second most predicted dog is Labrador_retriever (100 times), the high confidence of which is also left skewed with the median of 0.71 and mean of 0.67.
+
 ![prediction_confidence](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/prediction_confidence.png)
 
 ## 5. Dog Stages
 Only 366 out of 2355 dogs have their stages presented in the dataset. The most common stage is pupper (245), followed by doggo (83) among the dogs whose stage has been presented.
+
 ![dog_stages](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/dog_stages.png)
+
 The explanation of dog stages is shown as follows.
+
 ![dogtionary](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/dogtionary.png)
 
 
 ## 6. Post Tweet Day
 From Monday to Sunday, the number of posted tweet decreases. WeRateDogs followers may expect to see more new tweets on Monday.
+
 ![day_of_week](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/day_of_week.png)
 
 
