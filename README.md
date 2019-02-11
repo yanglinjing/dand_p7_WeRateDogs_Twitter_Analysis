@@ -37,72 +37,101 @@ Data was accessed based on both of quality and tidiness issues.
 ### Quality Issues
 #### Dataset 1
 Completeness:
-- in_reply_to_status_id: 78 out of 2356 is non-null
+
+
+-  in_reply_to_status_id: 78 out of 2356 is non-null
 - in_reply_to_user_id: 78 out of 2356 is non-null
 - retweeted_status_id: 181 out of 2356 is non-null
-- retweeted_status_user_id: 181 out of 2356 is non-null
-- retweeted_status_timestamp: 181 out of 2356 is non-null
+- retweeted_status_user_id:  181 out of 2356 is non-null
+- retweeted_status_timestamp:  181 out of 2356 is non-null
 - name: string 'None' should be replaced by Null
 
+
 Validity:
-- rating_denominator contains invalid values (e.g. denominator = 0)
-- expanded_url just includes incomplete url, which contains "https://twitter.com/dog_rates/status/" plus part of tweet_id
+
+- rating_denominator contains invalid values (e.g. denominator = 0, index = 313)
+- invalid names like *an, the, only*, etc.
 
 Accuracy:
-- rating_numberator contains extremely large values (e.g. 1776 when denominator = 10)
 
-Consistency:
-- source: the long name with HTML tag could be shorten.
+- rating_numberator contains extremely large values (e.g. 1776 when denominator = 10)
+- Since numerators are extracted from 'text', the numerators with decimals were wrongly extracted (index =  45, 340, 695, 763, 1689, 1712)
+
 
 Data Types:
-- tweet_id: integer -> object
-- timestamp: object -> datetime
-- in_reply_to_status_id: float -> object
+
+- tweet_id: int -> obj
+-  timestamp: obj -> datetime
+-  in_reply_to_status_id: float -> object
 - in_reply_to_user_id: float -> object
 - retweeted_status_id: float -> object
 - retweeted_status_user_id: float -> object
+
+
 #### Dataset 2
 Completeness:
-- retweet & favourite count: "Nan" should be replaced by Null.
-- retweet & favourite count: 16 missing values
+
+- retweet & favourite  count: "Nan" should be replaced by Null.
+- retweet & favourite  count: 16 missing values
 
 Data Type:
-- retweet & favourite count: object -> integer
+ - retweet & favourite  count: obj -> int
+
 #### Dataset 3
-Data Type:
-- tweet_id: integer -> object
+
+Consistency: the predicted names are written in both upper and lower cases.
+
+Data Types:
+
+- tweet_id: int -> obj
 
 ### Tidiness Issues
+
 #### Dataset 1
-- The dog stages - doggo / floofer / pupper / puppo - could be combined into 1 column as categorical data.
+
+- Since only original ratings (no retweets) that have images, the rows of retweets / replys could not contribute to this analysis and should be deleted.
+- After retweet / reply rows are deleted, the following columns could be dropped:
+ - in_reply_to_status_id
+ - in_reply_to_user_id
+ - retweeted_status_id
+ - retweeted_status_user_id
+ - retweeted_status_timestamp
+- doggo	/ floofer	/ pupper /	puppo: could be combined into 1 column as categorical data.
+- source: the long name with HTML tag could be shorten.
+
 #### Dataset 3
-- The column names could be more clear.
+- the column names could be more clear.
 
 ## Data Cleaning
 - The three datasets were combined into one with more clear column names.
-- The columns that could not contribute to analysis were dropped.
-- The row that contains invalid values was deleted.
-- All missing values were presented as Null.
-- The data types of all columns were corrected.
+- The columns / rows that could not contribute to analysis were dropped.
 - The dog stages were combined into one column as categorical data.
 - The HTML tags in the ‘source’ column were deleted.
+- The row with invalid rating denominator was deleted.
+- The wrongly extracted rating numerators were corrected according to the information in text column.
+- The rating outliers were deleted.
+- Missing values were presented as Null.
+- The data types of all columns were corrected.
+- Unclear column names were renamed.
+- The predicted dog types were changed to lowercase.
+
 
 
 # Data Analysing
 ## 1. Dog Ratings
 Since there are various rating denominators (although most of them are 10), the rating of dogs is calculated by dividing the numerator by the denominator.
-From the sorted raw data in the Data Cleaning section and the calculation above, it can be seen that there are 10 rows have their ratings larger than 1.7, including most outliers.
-After cutting off these 10 rows, it shows that the ratings of dogs are left-skewed distributed, with the mean of 1.07 and the median of 1.10. Besides, 75% of the dogs are rated equal to or more than 100%. Thus, it can be found that most dogs are considered to be better than perfect.
+The outliers have been deleted in Data Cleaning section.
+It shows that the ratings of dogs are left-skewed distributed, with the mean of 1.06 and the median of 1.10. Besides, 25% of the dogs are rated equal to or more than 100%. Thus, it can be found that most dogs are considered to be better than perfect.
 
 ![Dog Ratings](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/dog_ratings.png)
 
 ## 2. Source of Tweet
-From the pie chart, it presents that the dominant source is from iPhone, which is 94.3%. Only a few people use Vine (3.9%), Website (1.4%) and TweetDect (0.5%) to browse WeRateDogs Tweet.
+From the pie chart, it presents that the dominant source is from iPhone, which is 93.7%. Only a few people use Vine (4.3%), Website (1.5%) and TweetDect (0.5%) to browse WeRateDogs Tweet.
 
 ![Source of Tweet](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/sources.png)
 
 ## 3. Relationship between Retweet and Favourite
-The count of retweet and favourite are highly positively correlated ( r = 0.797). Thus, we could say that the more people like a tweet, the more they retweet it.
+The count of retweet and favourite are highly positively correlated ( r = 0.927). Thus, we could say that the more people like a tweet, the more they retweet it.
 
 ![Retweet and Favourite](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/retweet_favourite.png)
 
@@ -111,13 +140,13 @@ The top 15 predicted dogs are shown in the plot.
 
 ![Breeds](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/dog_predictions.png)
 
-It can be seen that golden retriever is the No.1 predicted dog, which has been predicted 150 times with high confidence. The confidence of predicting it is left skewed, with the median of 0.78 and mean of 0.72.
-The second most predicted dog is Labrador_retriever (100 times), the high confidence of which is also left skewed with the median of 0.71 and mean of 0.67.
+It can be seen that Golden Retriever is the No.1 predicted dog, which has been predicted 150 times with high confidence. The confidence of predicting it is left skewed, with the median of 0.78 and mean of 0.72.
+The second most predicted dog is Labrador Retriever (100 times), the high confidence of which is also left skewed with the median of 0.71 and mean of 0.67.
 
 ![prediction_confidence](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/prediction_confidence.png)
 
 ## 5. Dog Stages
-Only 366 out of 2355 dogs have their stages presented in the dataset. The most common stage is pupper (245), followed by doggo (83) among the dogs whose stage has been presented.
+Only 336 out of 2094 dogs have their stages presented in the dataset. The most common stage is pupper (230), followed by doggo (83) among the dogs whose stage has been presented.
 
 ![dog_stages](https://github.com/yanglinjing/dand_p7_data_wragling/blob/master/readme_pic/dog_stages.png)
 
@@ -134,8 +163,8 @@ From Monday to Sunday, the number of posted tweet decreases. WeRateDogs follower
 
 
 # Conclusion
-- 75% of the dogs are rated equal to or more than 100%. Thus, most dogs are considered to be better than perfect.
-- The dominant source is from iPhone (94.3%).
+- 25% of the dogs are rated equal to or more than 100%. Thus, most dogs are considered to be better than perfect.
+- The dominant source is from iPhone (93.7%).
 - The count of retweet and favourite are highly positively correlated - the more people like a tweet, the more they retweet it.
 - The top 1 predicted dog is golden retriever, followed by labrador retriever.
 - The most common stage is pupper, followed by doggo.
