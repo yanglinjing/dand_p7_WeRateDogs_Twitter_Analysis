@@ -1,0 +1,4 @@
+consumer_key = 'pTzzUxLTJcdNCeAHOvhUbflHX'
+consumer_secret = 'bW1RvcK3vlFBxYFe9XozytZTR50hVsZmdpRCBV2zKFKUSBYEOG'
+access_token = '1090182192024629249-EMhWG3aaCj1QPeMd8bHO21XPYDRQse'
+access_secret = '0qWGdlA4iCQ7wFw0RK1FXC6XKHfXtzYryvil0wcyzmN3j'

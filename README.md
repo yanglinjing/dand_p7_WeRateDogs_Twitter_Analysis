@@ -6,7 +6,7 @@ Real-world data rarely comes clean. Using Python and its libraries, I gathered d
 ## Goal
 Practice data wrangling using WeRateDogs Twitter data in order to create interesting and trustworthy analyses an visualizations.
 ## Tools
-I documented my wrangling efforts in a Jupyter Notebook, plus showcased them through analyses and visualizations using Python and its libraries (pandas, numpy, requests, json, tweepy, etc.).
+I documented my wrangling efforts in a Jupyter Notebook (Google Colab & Google Drive), plus showcased them through analyses and visualizations using Python and its libraries (pandas, numpy, requests, json, tweepy, etc.).
 ## Dataset
 My dataset consists of data from 3 different sources.
 ### 1. Twitter Archive
@@ -45,7 +45,13 @@ Completeness:
 - retweeted_status_user_id:  181 out of 2356 is non-null
 - retweeted_status_timestamp:  181 out of 2356 is non-null
 - name: string 'None' should be replaced by Null
-
+- Since only original ratings (no retweets) that have images, the rows of retweets / replys could not contribute to this analysis and should be deleted.
+- After retweet / reply rows are deleted, the following columns could be dropped:
+ - in_reply_to_status_id
+ - in_reply_to_user_id
+ - retweeted_status_id
+ - retweeted_status_user_id
+ - retweeted_status_timestamp
 
 Validity:
 
@@ -79,28 +85,23 @@ Data Type:
 
 #### Dataset 3
 
-Consistency: the predicted names are written in both upper and lower cases.
+Consistency:
+
+- the predicted names are written in both upper and lower cases.
 
 Data Types:
 
 - tweet_id: int -> obj
 
+The column names could be more clear.
+
 ### Tidiness Issues
 
 #### Dataset 1
 
-- Since only original ratings (no retweets) that have images, the rows of retweets / replys could not contribute to this analysis and should be deleted.
-- After retweet / reply rows are deleted, the following columns could be dropped:
- - in_reply_to_status_id
- - in_reply_to_user_id
- - retweeted_status_id
- - retweeted_status_user_id
- - retweeted_status_timestamp
 - doggo	/ floofer	/ pupper /	puppo: could be combined into 1 column as categorical data.
 - source: the long name with HTML tag could be shorten.
 
-#### Dataset 3
-- the column names could be more clear.
 
 ## Data Cleaning
 - The three datasets were combined into one with more clear column names.
