@@ -1,4 +1,4 @@
-# WeRateDogs Twitter
+# WeRateDogs Twitter Analysis
 
 BY YANG, Linjing
 2019/02/10
