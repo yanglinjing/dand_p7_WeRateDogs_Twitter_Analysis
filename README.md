@@ -1,4 +1,5 @@
-# Data Wrangling and Analysing Report - WeRateDogs Twitter
+# WeRateDogs Twitter
+(R Language)
 BY YANG, Linjing
 2019/02/10
 # Introduction
