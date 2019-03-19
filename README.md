@@ -1,5 +1,5 @@
 # WeRateDogs Twitter
-(R Language)
+
 BY YANG, Linjing
 2019/02/10
 # Introduction
@@ -7,7 +7,21 @@ Real-world data rarely comes clean. Using Python and its libraries, I gathered d
 ## Goal
 Practice data wrangling using WeRateDogs Twitter data in order to create interesting and trustworthy analyses an visualizations.
 ## Tools
-I documented my wrangling efforts in a Jupyter Notebook (Google Colab & Google Drive), plus showcased them through analyses and visualizations using Python and its libraries (pandas, numpy, requests, json, tweepy, etc.).
+I documented my wrangling efforts in a Jupyter Notebook (Google Colab & Google Drive), plus showcased them through analyses and visualizations using Python and its libraries.
+
+```
+import pandas as pd
+import requests
+import csv
+import tweepy
+import os
+import json
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from palettable.colorbrewer.qualitative import Pastel1_7
+```
+
 ## Dataset
 My dataset consists of data from 3 different sources.
 ### 1. Twitter Archive
